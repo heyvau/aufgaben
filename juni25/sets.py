@@ -6,8 +6,8 @@ s2 = set({5, 6})
 
 # 1. Messen Sie mit type(), ob es sich auch wirklich um sets handelt.
 
-print(f"Typ von s1: {s1}")
-print(f"Typ von s2: {s2}")
+print(f"Typ von s1: {type(s1)}")
+print(f"Typ von s2: {type(s2)}")
 
 
 # 2. Berechnen Sie deren Schnittmenge mit der Funktion intersection(). Speichern
@@ -33,7 +33,7 @@ s1.add(3)
 s1.add(4)
 s2.update([3, 4])
 
-# -----------------------------------------------
+print("-----------------------------------------------")
 
 # 5. Berechnen Sie die Schnittmenge von s1 und s2 erneut.
 
