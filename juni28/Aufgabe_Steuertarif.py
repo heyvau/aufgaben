@@ -49,10 +49,25 @@
 
 max_grundfreibetrag = 10908
 
+def erhalten_einkommensbetrag():
+
+    ist_zahl = False
+
+    while not ist_zahl:
+        einkommen_str = input("Mein Einkommen beträgt: ")
+
+        try:
+            einkommensbetrag = float(einkommen_str)
+        except ValueError:
+            print("Angabe ist nicht korrekt. Probiere noch einmal.")
+        else:
+            ist_zahl = True
+
+    return einkommensbetrag
+    
 
 def y_berechnung(betrag):
     y = 0.0001 * (betrag - max_grundfreibetrag)
-    print(y)
     return y
 
 
@@ -62,7 +77,7 @@ def z_berechnung(betrag):
 
 
 def x_berechnung(betrag):
-    x = round(betrag)
+    x = betrag
     return x
 
 
@@ -70,7 +85,8 @@ def einkommensteuer_berechnung(einkommen):
 
     einkommensteuer = 0
 
-    abgerundetes_einkommen = round(einkommen)
+    abgerundetes_einkommen = int(einkommen)
+
     y = y_berechnung(abgerundetes_einkommen)
     z = z_berechnung(abgerundetes_einkommen)
     x = x_berechnung(abgerundetes_einkommen)
@@ -87,10 +103,10 @@ def einkommensteuer_berechnung(einkommen):
     elif (abgerundetes_einkommen >= 277826):
         einkommensteuer = 0.45 * x - 18307.73
 
-    return round(einkommensteuer)
+    return int(einkommensteuer)
 
 
-mein_einkommen = float(input("Mein Einkommen beträgt: "))
+mein_einkommen = erhalten_einkommensbetrag()
 
 einkommensteuer = einkommensteuer_berechnung(mein_einkommen)
 
