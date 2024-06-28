@@ -57,7 +57,7 @@ def erhalten_einkommensbetrag():
         try:
             einkommensbetrag = float(einkommen_str)
             break
-        
+
         except ValueError:
             print("Angabe ist nicht korrekt. Probiere noch einmal.")
 
@@ -101,8 +101,10 @@ def einkommensteuer_berechnung(einkommen):
     return int(einkommensteuer)
 
 
-mein_einkommen = erhalten_einkommensbetrag()
+if __name__ == "__main__":
 
-einkommensteuer = einkommensteuer_berechnung(mein_einkommen)
+    mein_einkommen = erhalten_einkommensbetrag()
 
-print("Deine Einkommensteuer beträgt dann:", einkommensteuer)
+    einkommensteuer = einkommensteuer_berechnung(mein_einkommen)
+
+    print(f"Deine Einkommensteuer beträgt {einkommensteuer} Euro")
