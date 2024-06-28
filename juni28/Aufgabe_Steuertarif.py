@@ -51,57 +51,52 @@ max_grundfreibetrag = 10908
 
 def erhalten_einkommensbetrag():
 
-    ist_zahl = False
-
-    while not ist_zahl:
+    while True:
         einkommen_str = input("Mein Einkommen beträgt: ")
 
         try:
             einkommensbetrag = float(einkommen_str)
+            break
+        
         except ValueError:
             print("Angabe ist nicht korrekt. Probiere noch einmal.")
-        else:
-            ist_zahl = True
 
     return einkommensbetrag
     
 
-def y_berechnung(betrag):
-    y = 0.0001 * (betrag - max_grundfreibetrag)
-    return y
-
-
-def z_berechnung(betrag):
-    z = 0.0001 * (betrag - 15999)
-    return z
-
-
-def x_berechnung(betrag):
-    x = betrag
-    return x
+def xyz_berechnung(betrag, subtr=0, koef=1):
+    return koef * (betrag - subtr)
 
 
 def einkommensteuer_berechnung(einkommen):
 
     einkommensteuer = 0
 
-    abgerundetes_einkommen = int(einkommen)
+    abgerund_einkommen = int(einkommen)
 
-    y = y_berechnung(abgerundetes_einkommen)
-    z = z_berechnung(abgerundetes_einkommen)
-    x = x_berechnung(abgerundetes_einkommen)
+    x = xyz_berechnung(abgerund_einkommen)
 
-    if abgerundetes_einkommen in range(10909, 16000):
+    if abgerund_einkommen in range(10909, 16000):
+
+        y = xyz_berechnung(abgerund_einkommen, max_grundfreibetrag, 0.0001)
         einkommensteuer = (979.18 * y + 1400) * y
 
-    elif abgerundetes_einkommen in range(16000, 62810):
+    elif abgerund_einkommen in range(16000, 62810):
+
+        z = xyz_berechnung(abgerund_einkommen, 15999, 0.0001)
         einkommensteuer = (192.59 * z + 2397) * z + 966.53
 
-    elif abgerundetes_einkommen in range(62810, 277826):
+    elif abgerund_einkommen in range(62810, 277826):
+
         einkommensteuer = 0.42 * x - 9972.98
 
-    elif (abgerundetes_einkommen >= 277826):
+    elif (abgerund_einkommen >= 277826):
+
         einkommensteuer = 0.45 * x - 18307.73
+    
+    else:
+
+        einkommensteuer = 0 
 
     return int(einkommensteuer)
 
